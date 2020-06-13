@@ -69,30 +69,6 @@ check(Play* game, Play* attempt)
     return res;
 }
 
-void test()
-{
-    Play* one = malloc(sizeof(Play));
-    Play* two = malloc(sizeof(Play));
-
-    one->pieces[0] = 1;
-    one->pieces[1] = 2;
-    one->pieces[2] = 3;
-    one->pieces[3] = 4;
-
-    two->pieces[0] = 3;
-    two->pieces[1] = 2;
-    two->pieces[2] = 4;
-    two->pieces[3] = 1;
-
-    Result* res = check(one, two);
-
-    printf("c: %d, s: %d\n", res->correct, res->semicorrect);
-
-    free(one);
-    free(two);
-    free(res);
-}
-
 int
 main()
 {
@@ -143,7 +119,7 @@ main()
 
         unsigned char* pieces = game->pieces;
 
-        printf("You lost the game\nThe answer was %d %d %d %d.", pieces[0], pieces[1], pieces[2], pieces[3]);
+        printf("You lost the game\nThe answer was %d %d %d %d.\n", pieces[0], pieces[1], pieces[2], pieces[3]);
 
     }
 
