@@ -41,11 +41,10 @@ solutionGenerator()
     return game;
 }
 
-Result*
-check(Play* game, Play* attempt)
+void
+check(Result* res, Play* game, Play* attempt)
 {
     // allocate memory for result and set it to 0
-    Result* res = malloc(sizeof(Result));
     res->correct=0;
     res->semicorrect=0;
 
@@ -64,9 +63,6 @@ check(Play* game, Play* attempt)
             if (game->pieces[i] == attempt->pieces[j]) res->semicorrect++;
         }
     }
-
-    //return result
-    return res;
 }
 
 int
@@ -74,6 +70,8 @@ main()
 {
     srand(time(0));
     Play* game = solutionGenerator();
+    Play* attempt = malloc(sizeof(attempt));
+    Result* res = malloc(sizeof(Result));
     puts("-- Mastermind Game--");
 
     unsigned char* nattempts = 8;
@@ -85,21 +83,18 @@ main()
     {
         printf("You have %d attempts left: ", nattempts);
 
-        Play* attempt = malloc(sizeof(attempt));
 
         
         scanf("%d %d %d %d", &attempt->pieces[0], &attempt->pieces[1], &attempt->pieces[2], &attempt->pieces[3]);
 
-        Result* res = check(game, attempt);
+        check(res, game, attempt);
         
         printf("c: %d, s: %d\n", res->correct, res->semicorrect);
 
         int won = 0;
         won = res->correct == 4;
 
-        free(res);
 
-        free(attempt);
 
         if(won) break;
         nattempts--;
@@ -122,6 +117,10 @@ main()
         printf("You lost the game\nThe answer was %d %d %d %d.\n", pieces[0], pieces[1], pieces[2], pieces[3]);
 
     }
+    // Frees memory needed for various structs
+    free(res);
+
+    free(attempt);
 
     free(game);
 
